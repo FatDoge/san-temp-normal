@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
                 // test 表示测试什么文件类型
                 test: /\.css$/,
                 // 使用 'style-loader','css-loader'
-                use: ['style-loader', 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             {
                 test: /\.san$/,
@@ -35,6 +36,12 @@ module.exports = {
     plugins: [new HtmlWebpackPlugin({
         template: "./src/index.ejs",
         filename: "./index.html",
-        title:'san'
-    }),]
+        title: 'san'
+    }),
+    new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: "./css/[name].css",
+        chunkFilename: "[id]-[hash].css"
+    })]
 };
